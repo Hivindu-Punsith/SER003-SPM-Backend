@@ -1,0 +1,21 @@
+{
+  "name": "ser003-spm-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hivindu-Punsith/SER003-SPM-Backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Hivindu-Punsith/SER003-SPM-Backend/issues"
+  },
+  "homepage": "https://github.com/Hivindu-Punsith/SER003-SPM-Backend#readme"
+}
