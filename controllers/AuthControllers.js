@@ -30,6 +30,7 @@ const registerUser = async (req, res) => {
 
     if (user) {
       apiResponse.AlreadyExists(res,"User already exists",{user : user?.fullName});
+      return 0; 
     }
 
     // generating user unique gym id
@@ -72,7 +73,20 @@ const registerUser = async (req, res) => {
 
 const authUser = async (req, res) => {
   try {
-    const user = await User.findById(req.user.id);
+    let user = await User.findById(req.user.id);
+    if (!user) 
+    {
+        user = await Admin.findById(req.user.id);
+        if(!user)
+        {
+            user = await Instructor.findById(req.user.id);
+            if(!user)
+            {
+                apiResponse.NotFound(res,"Token expired or null",{ err: "Error" })
+                return 0;  
+            }
+        }
+    }
     apiResponse.Success(res,"Auth Success",{ user: user })
   } catch (err) {
     console.error(err.message);
@@ -96,11 +110,12 @@ const loginUser = async (req, res) => {
             user = await Instructor.findOne({ email });
             if(!user)
             {
-                apiResponse.NotFound(res,"Invalid Credentials",{ err: "Error" }) 
+                apiResponse.NotFound(res,"Invalid Credentials",{ err: "Error" })
+                return 0; 
             }
         }
     }
- 
+  
 
     const isMatch = await bcrypt.compare(password, user.password);
 
@@ -120,7 +135,7 @@ const loginUser = async (req, res) => {
       apiResponse.Success(res,"Login Success",{ token, userRole: user.userRole , user: user.fullName , userID : user?.gym_id ? user?.gym_id : "" })
     });
   } catch (err) {
-    console.error(err.message);
+    console.log(err.message);
     apiResponse.ServerError(res,"Server Error",{err:err});
   }
 };
