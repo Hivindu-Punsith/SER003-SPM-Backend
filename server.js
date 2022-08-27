@@ -58,6 +58,11 @@ mongoose.connect(
 
 //import routes
 const Auth = require("./routes/AuthRoutes");
+const product = require("./routes/product.routes");
 
 //User management routes
 app.use("/gym",Auth);
+
+//Store management routes
+app.use("/product",product);
+app.use("/uploads", express.static("uploads"));
