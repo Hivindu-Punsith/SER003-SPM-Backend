@@ -1,18 +1,17 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const apiResponse = require("../helpers/apiResponse");
 
 const equipmentsModel = require("../models/equipmentsModel");
-
-const router = express.Router();
-
 
  const getEquipments = async (req, res) => { 
     try {
         const equipments = await equipmentsModel.find();
                  
-        res.status(200).json(equipments);
-    } catch (error) {
-        res.status(404).json({ message: error.message });
+        apiResponse.Success(res,"Equipments",{ equipments: equipments })
+    } catch (err) {
+        console.error(err.message);
+        apiResponse.ServerError(res,"Server Error",{err:err});
     }
 }
 
@@ -23,9 +22,10 @@ const router = express.Router();
     try {
         const equipment = await equipmentsModel.findById(id);
         
-        res.status(200).json(equipment);
-    } catch (error) {
-        res.status(404).json({ message: error.message });
+        apiResponse.Success(res,"Equipment",{ equipment: equipment })
+    } catch (err) {
+        console.error(err.message);
+        apiResponse.ServerError(res,"Server Error",{err:err});
     }
 }
 
@@ -38,9 +38,10 @@ const router = express.Router();
     try {
         await newEquipment.save();
         
-        res.status(201).json({newEquipment} );
-    } catch (error) {
-        res.status(409).json({ message: error.message });
+        apiResponse.Success(res,"NewEquipment",{ newEquipment: newEquipment })
+    } catch (err) {
+        console.error(err.message);
+        apiResponse.ServerError(res,"Server Error",{err:err});
     }
 }
 
@@ -55,7 +56,7 @@ const router = express.Router();
 
     await equipmentsModel.findByIdAndUpdate(id, updatedEquipment, { new: true });
 
-    res.json({message : "Equipment updated successfully."});
+    apiResponse.Success(res,"Equipment Updated", {})
 }
 
 
@@ -66,7 +67,7 @@ const router = express.Router();
 
     await equipmentsModel.findByIdAndRemove(id);
 
-    res.json({ message: "Equipment deleted successfully." });
+    apiResponse.Success(res,"Equipment Deleted", {})
 }
 
 module.exports = {getEquipment, getEquipments, deleteEquipment, createEquipment, updateEquipment};

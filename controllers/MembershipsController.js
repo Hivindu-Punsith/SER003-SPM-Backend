@@ -1,18 +1,17 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const apiResponse = require("../helpers/apiResponse");
 
 const membershipModel = require("../models/membershipModel");
-
-const router = express.Router();
-
 
  const getMemberships = async (req, res) => { 
     try {
         const memberships = await membershipModel.find();
                  
-        res.status(200).json(memberships);
-    } catch (error) {
-        res.status(404).json({ message: error.message });
+        apiResponse.Success(res,"Memberships",{ memberships: memberships })
+    } catch (err) {
+        console.error(err.message);
+        apiResponse.ServerError(res,"Server Error",{err:err});
     }
 }
 
@@ -23,9 +22,10 @@ const router = express.Router();
     try {
         const membership = await membershipModel.findById(id);
         
-        res.status(200).json(membership);
-    } catch (error) {
-        res.status(404).json({ message: error.message });
+        apiResponse.Success(res,"Membership",{ membership: membership })
+    } catch (err) {
+        console.error(err.message);
+        apiResponse.ServerError(res,"Server Error",{err:err});
     }
 }
 
@@ -38,9 +38,10 @@ const router = express.Router();
     try {
         await newMembership.save();
         
-        res.status(201).json({newMembership} );
-    } catch (error) {
-        res.status(409).json({ message: error.message });
+        apiResponse.Success(res,"New Membership",{ newMembership: newMembership })
+    } catch (err) {
+        console.error(err.message);
+        apiResponse.ServerError(res,"Server Error",{err:err});
     }
 }
 
@@ -55,7 +56,7 @@ const router = express.Router();
 
     await membershipModel.findByIdAndUpdate(id, updatedMembership, { new: true });
 
-    res.json({message : "Membership updated successfully."});
+    apiResponse.Success(res,"Membership Updated", {})
 }
 
 
@@ -66,7 +67,7 @@ const router = express.Router();
 
     await membershipModel.findByIdAndRemove(id);
 
-    res.json({ message: "Membership deleted successfully." });
+    apiResponse.Success(res,"Membership Deleted", {})
 }
 
 module.exports = {getMembership, getMemberships, deleteMembership, createMembership, updateMembership};
