@@ -3,6 +3,7 @@ const upload = require("../middlewares/upload");
 
 // Create and Save a new Product
 exports.create = (req, res, next) => {
+
   upload(req, res, function (err) {
     if (err) {
       next(err);
@@ -13,7 +14,7 @@ exports.create = (req, res, next) => {
         req.file != undefined ? req.file.path.replace(/\\/g, "/") : "";
 
       var model = {
-        //category: req.body.category,
+        category: req.body.category,
         productName: req.body.productName,
         productPrice: req.body.productPrice,
         expireDate: req.body.expireDate,
@@ -80,7 +81,7 @@ exports.update = (req, res, next) => {
         req.file != undefined ? req.file.path.replace(/\\/g, "/") : "";
 
       var model = {
-        //category: req.body.category,
+        category: req.body.category,
         productName: req.body.productName,
         productPrice: req.body.productPrice,
         expireDate: req.body.expireDate,

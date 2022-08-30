@@ -4,7 +4,7 @@ const product = mongoose.model(
   "products",
   mongoose.Schema(
     {
-      //category: String,
+      category: String,
       productName: String,
       productPrice: Number,
       expireDate:Date,
