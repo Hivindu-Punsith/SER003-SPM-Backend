@@ -40,6 +40,10 @@ mongoose.connect(
 //import routes
 const Auth = require("./routes/AuthRoutes");
 const product = require("./routes/product.routes");
+const equipment = require("./routes/EquipmentsRoutes");
+const membership = require("./routes/MembershipsRoutes");
+const userRouter = require("./routes/userRoutes");
+
 
 //User management routes
 app.use("/gym",Auth);
@@ -47,3 +51,14 @@ app.use("/gym",Auth);
 //Store management routes
 app.use("/product",product);
 app.use("/uploads", express.static("uploads"));
+
+
+//Equipments Routes
+app.use("/gym/equipment", equipment);
+
+//Membership Routes
+app.use("/gym/membership", membership);
+
+//user routes
+app.use("/gym/user",userRouter);
+
