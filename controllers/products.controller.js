@@ -4,22 +4,13 @@ const upload = require("../middlewares/upload");
 // Create and Save a new Product
 exports.create = (req, res, next) => {
 
-  upload(req, res, function (err) {
-    if (err) {
-      next(err);
-    } else {
-      const url = req.protocol + "://" + req.get("host");
-
-      const path =
-        req.file != undefined ? req.file.path.replace(/\\/g, "/") : "";
-
       var model = {
         category: req.body.category,
         productName: req.body.productName,
         productPrice: req.body.productPrice,
         expireDate: req.body.expireDate,
         quantity: req.body.quantity,
-        productImage: path != "" ? url + "/" + path : "",
+        productImage: req.body.productImage,
       };
 
       productsServices.createProduct(model, (error, results) => {
@@ -32,8 +23,7 @@ exports.create = (req, res, next) => {
         });
       });
     }
-  });
-};
+
 
 // Retrieve all Products from the database.
 exports.findAll = (req, res, next) => {
@@ -71,14 +61,6 @@ exports.findOne = (req, res, next) => {
 
 // Update a Product by the id in the request
 exports.update = (req, res, next) => {
-  upload(req, res, function (err) {
-    if (err) {
-      next(err);
-    } else {
-      const url = req.protocol + "://" + req.get("host");
-
-      const path =
-        req.file != undefined ? req.file.path.replace(/\\/g, "/") : "";
 
       var model = {
         category: req.body.category,
@@ -86,7 +68,7 @@ exports.update = (req, res, next) => {
         productPrice: req.body.productPrice,
         expireDate: req.body.expireDate,
         quantity: req.body.quantity,
-        productImage: path != "" ? url + "/" + path : "",
+        productImage:req.body.productImage,
       };
 
       console.log(model);
@@ -101,8 +83,7 @@ exports.update = (req, res, next) => {
         });
       });
     }
-  });
-};
+
 
 // Delete a Product with the specified id in the request
 exports.delete = (req, res, next) => {

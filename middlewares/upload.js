@@ -11,6 +11,7 @@ const storage = multer.diskStorage({
 });
 
 const fileFilter = (req, file, callback) => {
+  console.log("file",file);
   const acceptableExtensions = [".png", ".jpg", ".mp4"];
   if (!acceptableExtensions.includes(Path.extname(file.originalname))) {
     return callback(new Error("Only .png, .jpg and .jpeg format allowed!"));
