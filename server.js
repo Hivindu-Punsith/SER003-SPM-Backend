@@ -44,6 +44,8 @@ const equipment = require("./routes/EquipmentsRoutes");
 const membership = require("./routes/MembershipsRoutes");
 const userRouter = require("./routes/userRoutes");
 const instructor = require("./routes/InstructorsRoutes");
+const workout = require("./routes/WorkoutsRoutes");
+const diet = require("./routes/DietsRoutes");
 
 
 //User management routes
@@ -65,4 +67,10 @@ app.use("/gym/membership", membership);
 
 //user routes
 app.use("/gym/user",userRouter);
+
+//Workout Routes
+app.use("/gym/workout", workout);
+
+//Diet Routes
+app.use("/gym/diet", diet);
 
