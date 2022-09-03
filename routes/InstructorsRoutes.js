@@ -11,3 +11,5 @@ router.delete("/deleteInstructor/:id",deleteInstructor);
 router.put("/updateInstructor/:id",updateInstructor);
 
 module.exports = router;
+
+//instructor routes end
