@@ -43,6 +43,7 @@ const product = require("./routes/product.routes");
 const equipment = require("./routes/EquipmentsRoutes");
 const membership = require("./routes/MembershipsRoutes");
 const userRouter = require("./routes/userRoutes");
+const instructor = require("./routes/InstructorsRoutes");
 
 
 //User management routes
@@ -55,6 +56,9 @@ app.use("/uploads", express.static("uploads"));
 
 //Equipments Routes
 app.use("/gym/equipment", equipment);
+
+//Instructors Routes
+app.use("/gym/instructor", instructor);
 
 //Membership Routes
 app.use("/gym/membership", membership);
