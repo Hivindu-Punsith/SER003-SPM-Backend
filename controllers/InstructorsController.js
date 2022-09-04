@@ -1,6 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const apiResponse = require("../helpers/apiResponse");
+const uniqueID = require("../helpers/uniqueID");
+const bcrypt = require("bcryptjs");
 
 const instructorModel = require("../models/instructorModel");
 
@@ -27,9 +29,35 @@ const instructorModel = require("../models/instructorModel");
     }
 
     const createInstructor = async (req, res) => {
-        const instructor = req.body;
+        const { 
+            fullName, 
+            email, 
+            mobileno, 
+            password,
+            dateOfBirth,
+            weight,
+            height,    
+        } = req.body;
+   
 
-        const newInstructor = new instructorModel({ ...instructor, creator: req.instructorId, })
+        var instructor_id = await uniqueID.generateInstructorID();
+
+        const newInstructor = new instructorModel({ 
+            instructor_id,
+            fullName, 
+            email, 
+            password,
+            mobileno, 
+            dateOfBirth,
+            weight,
+            height, 
+        });
+
+        //Encrypt Password
+        const salt = await bcrypt.genSalt(10);
+
+        newInstructor.password = await bcrypt.hash(newInstructor.password, salt);
+
         console.log("Saved data",newInstructor);
         try {
             await newInstructor.save();
