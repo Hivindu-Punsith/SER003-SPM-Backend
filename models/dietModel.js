@@ -8,7 +8,7 @@ const DietSchema = new mongoose.Schema({
     },
     diet_id: {
         type: String,
-        required: true,
+        required: false,
     },
     workout_type: {
         type: String,

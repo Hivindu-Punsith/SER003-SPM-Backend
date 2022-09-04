@@ -34,6 +34,10 @@ const UserSchema = new mongoose.Schema({
 		type: String,
         default:null
 	},
+	instructor: {
+		type: String,
+        default:null
+	},
     memberShip: {
 		type: String,
         default: null
