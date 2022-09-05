@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const apiResponse = require("../helpers/apiResponse");
 const uniqueID = require("../helpers/uniqueID");
 const bcrypt = require("bcryptjs");
-
+const passwordGenerator = require("../helpers/passwordGenerator.js");
 const instructorModel = require("../models/instructorModel");
 
     const getInstructors = async (req, res) => {
@@ -33,7 +33,6 @@ const instructorModel = require("../models/instructorModel");
             fullName, 
             email, 
             mobileno, 
-            password,
             dateOfBirth,
             weight,
             height,    
@@ -41,6 +40,7 @@ const instructorModel = require("../models/instructorModel");
    
 
         var instructor_id = await uniqueID.generateInstructorID();
+        var password = await passwordGenerator.generateRandomPassword();
 
         const newInstructor = new instructorModel({ 
             instructor_id,
