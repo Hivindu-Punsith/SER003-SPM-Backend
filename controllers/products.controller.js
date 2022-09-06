@@ -61,7 +61,7 @@ exports.findOne = (req, res, next) => {
 
 // Update a Product by the id in the request
 exports.update = (req, res, next) => {
-
+      const { id } = req.params;
       var model = {
         category: req.body.category,
         productName: req.body.productName,
@@ -69,6 +69,7 @@ exports.update = (req, res, next) => {
         expireDate: req.body.expireDate,
         quantity: req.body.quantity,
         productImage:req.body.productImage,
+        productId:id,
       };
 
       console.log(model);

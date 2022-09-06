@@ -72,8 +72,46 @@ const getUsers = async (req, res) => {
   }
 };
 
+const updateUserInstructor = async (req, res) => {
+  const { id } = req.params;
+  const {instructor}= req.body;
+
+  const filter = { gym_id: id };
+  const update = { instructor: instructor };
+
+  try {
+  
+  let data = await User.findOneAndUpdate(filter, update);
+  console.log(data);
+  apiResponse.Success(res,"User Instructor Updated", {data:data});
+
+  } catch (error) {
+    apiResponse.ServerError(res,"Server Error",{err:error});
+  }
+}
+
+const updateUserMemberShip = async (req, res) => {
+  const { id } = req.params;
+  const {memberShip}= req.body;
+
+  const filter = { gym_id: id };
+  const update = { memberShip: memberShip };
+
+  try {
+  
+  let data = await User.findOneAndUpdate(filter, update);
+  console.log(data);
+  apiResponse.Success(res,"User memberShip Updated", {data:data});
+
+  } catch (error) {
+    apiResponse.ServerError(res,"Server Error",{err:error});
+  }
+}
+
 
 module.exports = {
   getUsers,
   createUser,
+  updateUserInstructor,
+  updateUserMemberShip
 };
