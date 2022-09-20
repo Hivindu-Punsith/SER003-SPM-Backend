@@ -70,15 +70,27 @@ const instructorModel = require("../models/instructorModel");
 
     const updateInstructor = async (req, res) => {
         const { id } = req.params;
-        const { instructor_id, fullName, mobileno, email, dateOfBirth, weight, height, status, salary, password, userRole } = req.body;
-
-        if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
-         
-        const updatedInstructor = { instructor_id, fullName, mobileno, email, dateOfBirth, weight, height, status, salary, password, userRole, _id: id };
-
-        await instructorModel.findByIdAndUpdate(id, updatedInstructor, { new: true });
-
-        apiResponse.Success(res,"Instructor Updated", {})
+        const {  fullName, mobileno, email, dateOfBirth, weight, height } = req.body;
+        
+        const filter = { _id: id };
+        const update = { 
+             fullName: fullName,
+             mobileno:mobileno,
+             email : email,
+             dateOfBirth : dateOfBirth,
+             weight : weight,
+             height : height      
+            };
+      
+        try {
+        
+        let data = await instructorModel.findOneAndUpdate(filter, update);
+        console.log(data);
+        apiResponse.Success(res,"Instructor Details Updated", {data:data});
+      
+        } catch (error) {
+          apiResponse.ServerError(res,"Server Error",{err:error});
+        }
     }
 
     const deleteInstructor = async (req, res) => {
