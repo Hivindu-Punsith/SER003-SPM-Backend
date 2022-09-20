@@ -108,10 +108,37 @@ const updateUserMemberShip = async (req, res) => {
   }
 }
 
+const updateUser = async (req, res) => {
+  const { id } = req.params;
+  const { fullName, mobileno, email , dateOfBirth ,  weight ,height  } = req.body;
+
+  const filter = { _id: id };
+  const update = { 
+       fullName: fullName,
+       mobileno:mobileno,
+       email : email,
+       dateOfBirth : dateOfBirth,
+       weight : weight,
+       height : height      
+      };
+
+  try {
+  
+  let data = await User.findOneAndUpdate(filter, update);
+  console.log(data);
+  apiResponse.Success(res,"User Details Updated", {data:data});
+
+  } catch (error) {
+    apiResponse.ServerError(res,"Server Error",{err:error});
+  }
+}
+
+
 
 module.exports = {
   getUsers,
   createUser,
   updateUserInstructor,
-  updateUserMemberShip
+  updateUserMemberShip,
+  updateUser
 };

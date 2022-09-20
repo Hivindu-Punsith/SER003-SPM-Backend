@@ -141,10 +141,33 @@ const loginUser = async (req, res) => {
 };
 
 
+const updateAdmin = async (req, res) => {
+  const { id } = req.params;
+  const { fullName, mobileno, email } = req.body;
+
+  const filter = { _id: id };
+  const update = { 
+       fullName: fullName,
+       mobileno:mobileno,
+       email : email,    
+      };
+
+  try {
+  
+  let data = await Admin.findOneAndUpdate(filter, update);
+  console.log(data);
+  apiResponse.Success(res,"Admin Details Updated", {data:data});
+
+  } catch (error) {
+    apiResponse.ServerError(res,"Server Error",{err:error});
+  }
+}
+
 
 
 module.exports = {
   registerUser,
   authUser,
   loginUser,
+  updateAdmin
 };
