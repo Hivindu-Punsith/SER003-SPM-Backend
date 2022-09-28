@@ -134,11 +134,20 @@ const updateUser = async (req, res) => {
 }
 
 
+const deleteUser = async (req, res) => {
+  const { id } = req.params;
+
+  let data = await User.findByIdAndRemove(id);
+
+  apiResponse.Success(res, "User Deleted", {data:data});
+}
+
 
 module.exports = {
   getUsers,
   createUser,
   updateUserInstructor,
   updateUserMemberShip,
-  updateUser
+  updateUser,
+  deleteUser
 };
