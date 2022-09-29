@@ -146,8 +146,8 @@ const deleteUser = async (req, res) => {
 
 const getUserWorkOutAndDietPlans = async (req, res) => {
   const { id } = req.params;
-  var selectedDietPaln;
-  var selectedWorkoutPlan;
+  var selectedDietPaln = null;
+  var selectedWorkoutPlan = null;
   console.log("get plans",id);
 
   try {
@@ -162,7 +162,7 @@ const getUserWorkOutAndDietPlans = async (req, res) => {
     selectedDietPaln = diets;
   }
 
-  if(selectedDietPaln || selectedWorkoutPlan){
+  if(selectedDietPaln != null || selectedWorkoutPlan != null){
       apiResponse.Success(  
         res,
         "User WorkOut and Diet Plans", 
@@ -174,7 +174,7 @@ const getUserWorkOutAndDietPlans = async (req, res) => {
         }
       );
   }else{
-    apiResponse.ServerError(res,"Server Error",{err:error});
+    apiResponse.ServerError(res,"Server Error",{err:"No such plans"});
   }
 
 
