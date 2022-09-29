@@ -2,8 +2,7 @@ const mongoose = require("mongoose");
 
 const WorkoutSchema = new mongoose.Schema({
     user_id: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "user",
+        type:String,
         required: false,
     },
     workout_id: {
