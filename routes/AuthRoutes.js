@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const auth = require("../middlewares/auth");
 const { check } = require("express-validator");
-const { registerUser ,authUser , loginUser } = require("../controllers/AuthControllers.js"); 
+const { registerUser ,authUser , loginUser , updateAdmin } = require("../controllers/AuthControllers.js"); 
 
 
 router.post("/signup",
@@ -24,6 +24,8 @@ router.post(
 		check("password", "Password is required").exists(),
 	],
 	loginUser);
+
+router.put("/update-admin/:id",updateAdmin);
 
 
 module.exports = router;
