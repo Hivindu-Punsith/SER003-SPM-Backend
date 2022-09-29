@@ -3,6 +3,8 @@ const User = require("../models/userModel.js");
 const passwordGenerator = require("../helpers/passwordGenerator.js");
 const uniqueID = require("../helpers/uniqueID");
 const apiResponse = require("../helpers/apiResponse");
+const workoutModel = require("../models/workoutModel");
+const dietModel = require("../models/dietModel");
 
 const createUser = async (req, res) => {
   
@@ -142,6 +144,49 @@ const deleteUser = async (req, res) => {
   apiResponse.Success(res, "User Deleted", {data:data});
 }
 
+const getUserWorkOutAndDietPlans = async (req, res) => {
+  const { id } = req.params;
+  var selectedDietPaln;
+  var selectedWorkoutPlan;
+  console.log("get plans",id);
+
+  try {
+  const workouts = await workoutModel.findOne({"user_id":id});
+  const diets = await dietModel.findOne({"user_id":id});
+  console.log("workouts",workouts);
+  console.log("diets",diets);
+  if(workouts){
+    selectedWorkoutPlan = workouts;
+  }
+  if(diets){
+    selectedDietPaln = diets;
+  }
+
+  if(selectedDietPaln || selectedWorkoutPlan){
+      apiResponse.Success(  
+        res,
+        "User WorkOut and Diet Plans", 
+        {data:{
+              workout:selectedWorkoutPlan,
+              diet:selectedDietPaln,
+              user:id
+            }
+        }
+      );
+  }else{
+    apiResponse.ServerError(res,"Server Error",{err:error});
+  }
+
+
+
+  } catch (error) {
+
+  }
+
+
+
+}
+
 
 module.exports = {
   getUsers,
@@ -149,5 +194,6 @@ module.exports = {
   updateUserInstructor,
   updateUserMemberShip,
   updateUser,
-  deleteUser
+  deleteUser,
+  getUserWorkOutAndDietPlans
 };
