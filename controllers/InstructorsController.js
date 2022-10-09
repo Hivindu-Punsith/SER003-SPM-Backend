@@ -35,7 +35,8 @@ const instructorModel = require("../models/instructorModel");
             mobileno, 
             dateOfBirth,
             weight,
-            height,    
+            height, 
+            salary,   
         } = req.body;
    
 
@@ -50,7 +51,8 @@ const instructorModel = require("../models/instructorModel");
             mobileno, 
             dateOfBirth,
             weight,
-            height, 
+            height,
+            salary, 
         });
 
         //Encrypt Password
@@ -70,7 +72,7 @@ const instructorModel = require("../models/instructorModel");
 
     const updateInstructor = async (req, res) => {
         const { id } = req.params;
-        const {  fullName, mobileno, email, dateOfBirth, weight, height } = req.body;
+        const {  fullName, mobileno, email, dateOfBirth, weight, height, salary } = req.body;
         
         const filter = { _id: id };
         const update = { 
@@ -79,7 +81,8 @@ const instructorModel = require("../models/instructorModel");
              email : email,
              dateOfBirth : dateOfBirth,
              weight : weight,
-             height : height      
+             height : height,
+             salary : salary      
             };
       
         try {
