@@ -4,7 +4,7 @@ const CardSchema = new mongoose.Schema({
 
     ctype:{
         type:String,
-        required:true,
+        // required:true,
     },
     holder:{
         type:String,
