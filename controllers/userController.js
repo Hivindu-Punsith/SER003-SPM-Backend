@@ -74,6 +74,15 @@ const getUsers = async (req, res) => {
   }
 };
 
+const getOneUser = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    apiResponse.Success(res,"All Users Retrive Success",{users: users });
+  } catch (error) {
+    apiResponse.ServerError(res,"Server Error",{err:error});
+  }
+};
+
 const updateUserInstructor = async (req, res) => {
   const { id } = req.params;
   const {instructor}= req.body;
@@ -190,6 +199,7 @@ const getUserWorkOutAndDietPlans = async (req, res) => {
 
 module.exports = {
   getUsers,
+  getOneUser,
   createUser,
   updateUserInstructor,
   updateUserMemberShip,
