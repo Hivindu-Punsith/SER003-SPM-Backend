@@ -80,5 +80,5 @@ app.use("/gym/diet", diet);
 app.use("/gym/payment", payment);
 
 //Card Routes
-app.use("/card", card)
+app.use("/gym/card", card)
 
