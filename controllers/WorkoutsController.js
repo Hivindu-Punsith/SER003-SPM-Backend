@@ -19,7 +19,8 @@ const getWorkout = async (req, res) => {
     const { id } = req.params;
 
     try {
-        const workout = await workoutModel.findById(id);
+        // const workout = await workoutModel.findById(id);
+        const workout = await workoutModel.find({ "user_id": id });
 
         apiResponse.Success(res, "Workout", { workout: workout });
     } catch (err) {
