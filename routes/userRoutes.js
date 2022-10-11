@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { check } = require("express-validator");
-const { getUsers ,createUser , updateUserInstructor , updateUserMemberShip , updateUser , deleteUser , getUserWorkOutAndDietPlans} = require("../controllers/userController.js");
+const { getUsers ,createUser , updateUserInstructor , updateUserMemberShip , updateUser , deleteUser , getUserWorkOutAndDietPlans, getOneUser} = require("../controllers/userController.js");
 
 
 router.post("/create-user",
@@ -10,6 +10,7 @@ router.post("/create-user",
 	],
 	createUser);
 router.get("/all-users",getUsers);
+router.get("/:id",getOneUser);
 router.put("/update-instructor/:id",updateUserInstructor);
 router.put("/update-memberShip/:id",updateUserMemberShip);
 router.put("/update-user/:id",updateUser);
