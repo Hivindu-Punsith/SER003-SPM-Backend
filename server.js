@@ -48,6 +48,7 @@ const workout = require("./routes/WorkoutsRoutes");
 const diet = require("./routes/DietsRoutes");
 const payment = require("./routes/paymetRoutes");
 const card = require("./routes/cardRoutes");
+const cart = require("./routes/cart");
 
 
 //User management routes
@@ -82,3 +83,5 @@ app.use("/gym/payment", payment);
 //Card Routes
 app.use("/gym/card", card)
 
+//cart routes
+app.use("/gym/cart",cart)
