@@ -19,7 +19,8 @@ const getDiet = async (req, res) => {
     const { id } = req.params;
 
     try {
-        const diet = await dietModel.findById(id);
+        // const diet = await dietModel.findById(id);
+        const diet = await dietModel.find({ "user_id": id });
 
         apiResponse.Success(res, "Diet", { diet: diet });
     } catch (err) {

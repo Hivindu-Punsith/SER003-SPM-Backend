@@ -63,7 +63,7 @@ const registerUser = async (req, res) => {
 
     jwt.sign(payload, jwtSecret, { expiresIn: 360000 }, (err, token) => {
       if (err) throw err;
-      apiResponse.Success(res,"Register Success",{ token, userRole: user.userRole, user: user.fullName , userID : user.gym_id  })
+      apiResponse.Success(res,"Register Success",{ token, userRole: user.userRole, user: user.fullName , userID : user.gym_id , _id:user?._id  })
     });
   } catch (err) {
     console.error(err.message);
@@ -132,7 +132,7 @@ const loginUser = async (req, res) => {
 
     jwt.sign(payload, jwtSecret, { expiresIn: "1 days" }, (err, token) => {
       if (err) throw err;
-      apiResponse.Success(res,"Login Success",{ token, userRole: user.userRole , user: user.fullName , userID : user?.gym_id ? user?.gym_id : "" })
+      apiResponse.Success(res,"Login Success",{ token, userRole: user.userRole , user: user.fullName , userID : user?.gym_id ? user?.gym_id : "" , _id:user?._id  })
     });
   } catch (err) {
     console.log(err.message);
@@ -141,10 +141,33 @@ const loginUser = async (req, res) => {
 };
 
 
+const updateAdmin = async (req, res) => {
+  const { id } = req.params;
+  const { fullName, mobileno, email } = req.body;
+
+  const filter = { _id: id };
+  const update = { 
+       fullName: fullName,
+       mobileno:mobileno,
+       email : email,    
+      };
+
+  try {
+  
+  let data = await Admin.findOneAndUpdate(filter, update);
+  console.log(data);
+  apiResponse.Success(res,"Admin Details Updated", {data:data});
+
+  } catch (error) {
+    apiResponse.ServerError(res,"Server Error",{err:error});
+  }
+}
+
 
 
 module.exports = {
   registerUser,
   authUser,
   loginUser,
+  updateAdmin
 };

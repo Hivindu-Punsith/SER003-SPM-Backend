@@ -2,8 +2,7 @@ const mongoose = require("mongoose");
 
 const DietSchema = new mongoose.Schema({
     user_id: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "user",
+        type: String,
         required: false,
     },
     diet_id: {
