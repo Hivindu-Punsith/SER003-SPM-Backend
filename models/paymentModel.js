@@ -23,6 +23,14 @@ const PaymentSchema = new mongoose.Schema({
         type:String,
         required:true,
     },
+	total:{
+		type:String,
+		required:true,
+	},
+	Items:{
+		type:[],
+		required:true
+	}
     
 },
 {

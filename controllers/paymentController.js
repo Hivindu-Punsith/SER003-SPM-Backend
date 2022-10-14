@@ -32,7 +32,7 @@ const paymentModel = require("../models/paymentModel");
 
  const createPayment = async (req, res) => {
     const payment = req.body;
-
+    console.log("body data ",payment);
     const newPayment = new paymentModel({ ...payment, creator: req.paymentId, })
     console.log("Saved data",newPayment);
     try {
