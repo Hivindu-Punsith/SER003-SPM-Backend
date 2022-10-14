@@ -5,6 +5,11 @@ const uniqueID = require("../helpers/uniqueID");
 const apiResponse = require("../helpers/apiResponse");
 const workoutModel = require("../models/workoutModel");
 const dietModel = require("../models/dietModel");
+var ShoutoutClient = require('shoutout-sdk');
+
+var apiKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIwZjk5OTFiMC1kNGUzLTExZWMtYmViYi0wOTUyMTdlNmY3ZDUiLCJzdWIiOiJTSE9VVE9VVF9BUElfVVNFUiIsImlhdCI6MTY1MjY4MzIyMiwiZXhwIjoxOTY4MzAyNDIyLCJzY29wZXMiOnsiYWN0aXZpdGllcyI6WyJyZWFkIiwid3JpdGUiXSwibWVzc2FnZXMiOlsicmVhZCIsIndyaXRlIl0sImNvbnRhY3RzIjpbInJlYWQiLCJ3cml0ZSJdfSwic29fdXNlcl9pZCI6IjY4MDE1Iiwic29fdXNlcl9yb2xlIjoidXNlciIsInNvX3Byb2ZpbGUiOiJhbGwiLCJzb191c2VyX25hbWUiOiIiLCJzb19hcGlrZXkiOiJub25lIn0.U_m2CPK2xVilqVHN6PMxwkaRaTUXjAD0v13HDcDPv5k';
+
+var debug = true, verifySSL = false;
 
 const createUser = async (req, res) => {
   
@@ -32,6 +37,22 @@ let user = await User.findOne({ email });
     var gym_id = await uniqueID.generateID();
     var password = await passwordGenerator.generateRandomPassword();
 
+    var client = new ShoutoutClient(apiKey, debug, verifySSL);
+    var message = {
+    "content": {"sms": "Hello! "+fullName+" Your Registration is successfull..!" + "Your Gym ID is: "+gym_id+ " and Password is: "+password},
+    "destinations": [mobileno],
+    "source": "ShoutDEMO",
+    "transports": ["SMS"]
+    };
+
+    client.sendMessage(message, (error, result) => {
+    if (error) {
+    console.error('Error sending message!',error);
+    } else {
+    console.log('Sending message successful!',result);
+    }
+    });
+
     user = new User({
         gym_id,
         fullName, 
@@ -52,8 +73,7 @@ let user = await User.findOne({ email });
 
     await user.save();
     
-    apiResponse.Success(res,"Add New User Success",{user: user });
-    
+    apiResponse.Success(res,"Add New User Success",{user: user});
 
     } catch (err) {
     console.error(err);
@@ -157,7 +177,7 @@ const getUserWorkOutAndDietPlans = async (req, res) => {
   const { id } = req.params;
   var selectedDietPaln = null;
   var selectedWorkoutPlan = null;
-  console.log("get plans",id);
+  console.log("get plans ID",id);
 
   try {
   const workouts = await workoutModel.findOne({"user_id":id});
