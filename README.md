@@ -7,6 +7,8 @@
 * IT20263744	H.D.N. Prabodhika Damayanthi
 * IT20243012	K.R.A. Perera
 
+![4669577](https://user-images.githubusercontent.com/89182652/195965354-55649240-92b8-4c86-abdc-070432233ce9.png)
+
 ## Project Description
 
 This is the project of the group SER003 for the module Software Project Management(SE3080), Sri Lanka Institute of Information Technology(SLIIT).
@@ -33,6 +35,7 @@ In Membership Managment admin can add , update , delete memberships. In equipmen
 In Store management admin can add , update , delete items and user can buy items fron the store. In Instructor management Instructor can add, update , delete his/her members diet plans and workout plans, 
 in every managment report generation and search function is available in both admin and user sides.
 
+![7001291](https://user-images.githubusercontent.com/89182652/195965445-feaacf87-e4cd-4025-a28b-720b1352a596.png)
 
 ## Technologies
 
